@@ -1,4 +1,4 @@
-// Ephemeris prototype — Subscription screen interaction
+// Zodiac Bee prototype — Subscription screen interaction
 (function () {
   var pickerView = document.getElementById("pickerView");
   var manageView = document.getElementById("manageView");

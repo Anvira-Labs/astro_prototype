@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ephemeris Prototype</title>
-<meta name="description" content="A reviewable, clickable prototype of the five V1 Ephemeris screens — chat, wallet, subscription, product picks and onboarding — at both mobile and desktop widths." />
+<title>Zodiac Bee Prototype</title>
+<meta name="description" content="A reviewable, clickable prototype of the six V1 Zodiac Bee screens — home, chat, wallet, subscription, product picks and onboarding — at both mobile and desktop widths." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
 <link rel="stylesheet" href="styles/app.css" />
@@ -22,7 +22,7 @@
 <div class="top-strip">
   <span class="wordmark">
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" class="glyph"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-24 12 12)"/></svg>
-    Ephemeris
+    Zodiac Bee
   </span>
   <button class="theme-toggle" data-theme-toggle aria-label="Toggle color theme">
     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4 7 7 0 0 0 20 14.5z"/></svg>
@@ -31,13 +31,14 @@
 
 <div class="launcher-hero">
   <span class="eyebrow">Clickable prototype · V1 scope</span>
-  <h1 class="h1" style="margin-top:.5rem; max-width:26ch;">Five screens, reviewed the way they'll ship</h1>
-  <p class="lede" style="margin-top:.75rem; max-width:52ch;">Every screen below is live — send a chat message, drain the token balance, pick a recharge pack, flip auto-recharge, subscribe to the daily reading, filter the product picks, or walk through signup. Toggle between a phone-width and desktop-width frame to see the same screen respond to both.</p>
+  <h1 class="h1" style="margin-top:.5rem; max-width:26ch;">Six screens, reviewed the way they'll ship</h1>
+  <p class="lede" style="margin-top:.75rem; max-width:52ch;">Every screen below is live — land on the home tiles, send a chat message, drain the token balance, pick a recharge pack, flip auto-recharge, subscribe to the daily reading, filter the product picks, or walk through signup. Toggle between a phone-width and desktop-width frame to see the same screen respond to both.</p>
 </div>
 
 <div class="launcher-controls">
   <div class="screen-tabs" id="screenTabs">
-    <button class="chip" data-screen="chat" aria-pressed="true">01 · Chat</button>
+    <button class="chip" data-screen="home" aria-pressed="true">00 · Home</button>
+    <button class="chip" data-screen="chat" aria-pressed="false">01 · Chat</button>
     <button class="chip" data-screen="wallet" aria-pressed="false">02 · Wallet</button>
     <button class="chip" data-screen="subscription" aria-pressed="false">03 · Daily reading</button>
     <button class="chip" data-screen="products" aria-pressed="false">04 · Picks</button>
@@ -54,7 +55,7 @@
         Desktop
       </button>
     </div>
-    <a class="btn-text" id="fullscreenLink" href="screens/chat.html" target="_blank" rel="noopener">Open full screen ↗</a>
+    <a class="btn-text" id="fullscreenLink" href="screens/home.html" target="_blank" rel="noopener">Open full screen ↗</a>
   </div>
 </div>
 
@@ -65,6 +66,7 @@
     <h2 class="h2">What each screen is proving</h2>
   </div>
   <div class="grid-list">
+    <div class="summary-card"><span class="num mono-stat">00</span><div><strong>Home</strong><span>Tile grid entry point into each module — Peer-to-peer shown in a disabled "coming soon" state, out of V1 scope.</span></div></div>
     <div class="summary-card"><span class="num mono-stat">01</span><div><strong>Chat</strong><span>Token balance is always visible; the composer visibly disables at zero tokens instead of silently failing.</span></div></div>
     <div class="summary-card"><span class="num mono-stat">02</span><div><strong>Wallet</strong><span>Recharge packs, saved card, and an auto-recharge toggle with a plain-language trigger explanation.</span></div></div>
     <div class="summary-card"><span class="num mono-stat">03</span><div><strong>Daily reading</strong><span>Multi-select channel picker (push/WhatsApp/email), then a live manage/pause/cancel state.</span></div></div>

@@ -1,4 +1,4 @@
-// Ephemeris prototype — Onboarding flow interaction
+// Zodiac Bee prototype — Onboarding flow interaction
 (function () {
   var panels = Array.prototype.slice.call(document.querySelectorAll(".step-panel"));
   var dots = Array.prototype.slice.call(document.querySelectorAll(".progress-dot"));

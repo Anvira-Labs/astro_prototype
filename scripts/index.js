@@ -1,11 +1,11 @@
-// Ephemeris prototype — launcher (screen + viewport switcher)
+// Zodiac Bee prototype — launcher (screen + viewport switcher)
 (function () {
   var screenTabs = document.getElementById("screenTabs");
   var viewportToggle = document.getElementById("viewportToggle");
   var stage = document.getElementById("stage");
   var fullscreenLink = document.getElementById("fullscreenLink");
 
-  var screen = "chat";
+  var screen = "home";
   var viewport = "mobile";
 
   function render() {
@@ -25,7 +25,7 @@
         '<div class="browser-frame">' +
         '  <div class="browser-chrome">' +
         '    <span class="browser-dots"><span></span><span></span><span></span></span>' +
-        '    <span class="browser-url">ephemeris.app/' + screen + "</span>" +
+        '    <span class="browser-url">zodiacbee.app/' + screen + "</span>" +
         "  </div>" +
         '  <iframe title="' + screen + ' preview, desktop width" src="' + src + '"></iframe>' +
         "</div>";

@@ -1,8 +1,8 @@
-// Ephemeris prototype — shared theme toggle (light / dark / system)
+// Zodiac Bee prototype — shared theme toggle (light / dark / system)
 // Persists an explicit choice in localStorage; falls back to the OS setting
 // (prefers-color-scheme) when the visitor has never chosen one.
 (function () {
-  var STORAGE_KEY = "ephemeris-theme";
+  var STORAGE_KEY = "zodiac-bee-theme";
 
   function apply(theme) {
     if (theme === "light" || theme === "dark") {

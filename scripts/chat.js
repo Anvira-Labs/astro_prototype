@@ -1,4 +1,4 @@
-// Ephemeris prototype — Chat screen interaction
+// Zodiac Bee prototype — Chat screen interaction
 (function () {
   var state = { balance: 3 };
 
@@ -43,7 +43,7 @@
     bubble.textContent = text;
     var meta = document.createElement("div");
     meta.className = "msg-meta";
-    meta.textContent = (who === "user" ? "You" : "Ephemeris") + " · " + nowLabel();
+    meta.textContent = (who === "user" ? "You" : "Zodiac Bee") + " · " + nowLabel();
     msg.appendChild(bubble);
     msg.appendChild(meta);
     thread.appendChild(msg);

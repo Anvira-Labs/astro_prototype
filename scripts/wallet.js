@@ -1,4 +1,4 @@
-// Ephemeris prototype — Wallet screen interaction
+// Zodiac Bee prototype — Wallet screen interaction
 (function () {
   var balance = 82;
   var heroBalance = document.getElementById("heroBalance");

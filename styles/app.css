@@ -1,5 +1,5 @@
 /* ============================================================
-   Ephemeris — shared design tokens & components
+   Zodiac Bee — shared design tokens & components
    Indigo ink / paper-white & near-black grounds / muted brass accent
    Fraunces (display) · Public Sans (body/UI) · IBM Plex Mono (data)
    ============================================================ */
@@ -1014,6 +1014,51 @@ img, svg { display: block; max-width: 100%; }
   animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================================
+   Screen: Home
+   ============================================================ */
+.home-hero { padding: 0.2rem 0 0.4rem; }
+.tile-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 620px) { .tile-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .tile-grid { grid-template-columns: repeat(3, 1fr); } }
+.tile-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.3rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+  text-align: left;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.tile-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+.tile-icon {
+  width: 2.75rem; height: 2.75rem;
+  border-radius: var(--radius-md);
+  background: var(--brass-tint);
+  color: var(--brass-strong);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.tile-icon svg { width: 22px; height: 22px; }
+.tile-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+.tile-text-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.tile-text strong { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; }
+.tile-text span { font-size: 0.85rem; color: var(--ink-soft); }
+.tile-arrow { color: var(--ink-faint); flex-shrink: 0; margin-top: 0.35rem; transition: transform 0.15s ease; }
+.tile-card:hover .tile-arrow { transform: translate(2px, -2px); color: var(--ink); }
+
+.tile-card.is-disabled { cursor: not-allowed; opacity: 0.6; }
+.tile-card.is-disabled:hover { transform: none; box-shadow: none; border-color: var(--line); }
+.tile-card.is-disabled .tile-icon { background: var(--paper-sunken); color: var(--ink-faint); }
+
+.badge-muted { background: var(--paper-sunken); color: var(--ink-faint); }
 
 /* ============================================================
    Launcher (index.html)

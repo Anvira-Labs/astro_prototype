@@ -1,4 +1,4 @@
-// Ephemeris prototype — Product listing interaction
+// Zodiac Bee prototype — Product listing interaction
 (function () {
   var filterRow = document.getElementById("filterRow");
   var viewToggle = document.getElementById("viewToggle");
