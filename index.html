@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ephemeris Prototype</title>
+<meta name="description" content="A reviewable, clickable prototype of the five V1 Ephemeris screens — chat, wallet, subscription, product picks and onboarding — at both mobile and desktop widths." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" />
+<link rel="stylesheet" href="styles/app.css" />
+<style>
+  body { background: var(--paper); }
+  .top-strip {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 900px) { .top-strip { padding: 0.9rem 2.5rem; } }
+</style>
+</head>
+<body>
+
+<div class="top-strip">
+  <span class="wordmark">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" class="glyph"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-24 12 12)"/></svg>
+    Ephemeris
+  </span>
+  <button class="theme-toggle" data-theme-toggle aria-label="Toggle color theme">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4 7 7 0 0 0 20 14.5z"/></svg>
+  </button>
+</div>
+
+<div class="launcher-hero">
+  <span class="eyebrow">Clickable prototype · V1 scope</span>
+  <h1 class="h1" style="margin-top:.5rem; max-width:26ch;">Five screens, reviewed the way they'll ship</h1>
+  <p class="lede" style="margin-top:.75rem; max-width:52ch;">Every screen below is live — send a chat message, drain the token balance, pick a recharge pack, flip auto-recharge, subscribe to the daily reading, filter the product picks, or walk through signup. Toggle between a phone-width and desktop-width frame to see the same screen respond to both.</p>
+</div>
+
+<div class="launcher-controls">
+  <div class="screen-tabs" id="screenTabs">
+    <button class="chip" data-screen="chat" aria-pressed="true">01 · Chat</button>
+    <button class="chip" data-screen="wallet" aria-pressed="false">02 · Wallet</button>
+    <button class="chip" data-screen="subscription" aria-pressed="false">03 · Daily reading</button>
+    <button class="chip" data-screen="products" aria-pressed="false">04 · Picks</button>
+    <button class="chip" data-screen="onboarding" aria-pressed="false">05 · Onboarding</button>
+  </div>
+  <div style="display:flex; align-items:center; gap:.75rem;">
+    <div class="viewport-toggle" id="viewportToggle">
+      <button aria-pressed="true" data-viewport="mobile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 19h2"/></svg>
+        Mobile · 390px
+      </button>
+      <button aria-pressed="false" data-viewport="desktop">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8"/><path d="M12 16v4"/></svg>
+        Desktop
+      </button>
+    </div>
+    <a class="btn-text" id="fullscreenLink" href="screens/chat.html" target="_blank" rel="noopener">Open full screen ↗</a>
+  </div>
+</div>
+
+<div class="stage" id="stage"></div>
+
+<div class="launcher-foot-note">
+  <div class="page-head" style="margin-bottom:1rem;">
+    <h2 class="h2">What each screen is proving</h2>
+  </div>
+  <div class="grid-list">
+    <div class="summary-card"><span class="num mono-stat">01</span><div><strong>Chat</strong><span>Token balance is always visible; the composer visibly disables at zero tokens instead of silently failing.</span></div></div>
+    <div class="summary-card"><span class="num mono-stat">02</span><div><strong>Wallet</strong><span>Recharge packs, saved card, and an auto-recharge toggle with a plain-language trigger explanation.</span></div></div>
+    <div class="summary-card"><span class="num mono-stat">03</span><div><strong>Daily reading</strong><span>Multi-select channel picker (push/WhatsApp/email), then a live manage/pause/cancel state.</span></div></div>
+    <div class="summary-card"><span class="num mono-stat">04</span><div><strong>Picks</strong><span>Astrologer-curated, outbound-link cards — filterable, no cart chrome, no prices (V1 scope).</span></div></div>
+    <div class="summary-card"><span class="num mono-stat">05</span><div><strong>Onboarding</strong><span>DOB/POB/TOB framed as "get your reading," ending in a chart reveal and 10 free tokens.</span></div></div>
+  </div>
+  <p class="fine" style="margin-top:1.5rem; max-width:60ch;">Prototype only — no backend. Chat replies, payments and subscription state are simulated client-side so every interaction is real to click through, not wired to live data. Pricing shown throughout is illustrative pending Blueprint §12 (token pricing is an open item).</p>
+</div>
+
+<script src="scripts/theme.js"></script>
+<script src="scripts/index.js"></script>
+</body>
+</html>
