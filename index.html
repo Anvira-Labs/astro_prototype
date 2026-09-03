@@ -17,6 +17,23 @@
   })();
 </script>
 
+<!-- Zodiac Bee is a mobile app, not a responsive desktop site. Decide this
+     before first paint (avoids a flash of the real app) and re-decide on
+     resize (app.js), so a wide top-level window always lands on the
+     "use your phone" gate instead of a squeezed desktop layout — the gate
+     itself embeds a real, working phone-sized instance of the app in an
+     iframe, which reports its own (mobile) width and is never gated. -->
+<script>
+  (function () {
+    try {
+      var embedded = window.self !== window.top;
+      if (!embedded && window.innerWidth >= 700) {
+        document.documentElement.classList.add("is-desktop-gate");
+      }
+    } catch (e) {}
+  })();
+</script>
+
 <meta name="theme-color" content="#2a1e42" media="(prefers-color-scheme: dark)" />
 <meta name="theme-color" content="#faf7fd" media="(prefers-color-scheme: light)" />
 <link rel="manifest" href="manifest.webmanifest" />
@@ -107,6 +124,27 @@
 <div class="onboard-shell" id="onboardShell" hidden></div>
 
 <div class="toast" id="toast"></div>
+
+<!-- Shown instead of the app whenever this document is the top-level window
+     at desktop width (see the inline script in <head> and #is-desktop-gate
+     in app.css). Never shown inside the phone-preview iframe below, since
+     that iframe reports its own narrow width regardless of the outer
+     window's size. -->
+<div class="desktop-gate" id="desktopGate">
+  <div class="desktop-gate-card">
+    <span class="wordmark">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" class="glyph"><circle cx="12" cy="12" r="3"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(-24 12 12)"/></svg>
+      Zodiac Bee
+    </span>
+    <h1>Made for your phone</h1>
+    <p>Zodiac Bee is a mobile web app — open this link on your phone for the real thing, or try it right here in the preview.</p>
+    <p class="desktop-gate-hint">Narrower window? It drops the preview and runs full-screen below ~700px.</p>
+  </div>
+  <div class="phone-frame">
+    <div class="phone-frame-notch"></div>
+    <iframe class="phone-frame-screen" src="./index.html" title="Zodiac Bee — mobile preview" loading="lazy"></iframe>
+  </div>
+</div>
 
 <script type="module" src="scripts/app.js"></script>
 </body>
