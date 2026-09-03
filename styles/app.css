@@ -1,29 +1,48 @@
 /* ============================================================
    Zodiac Bee — shared design tokens & components
-   Indigo ink / paper-white & near-black grounds / muted brass accent
-   Fraunces (display) · Public Sans (body/UI) · IBM Plex Mono (data)
+   Lavender-plum ink / soft-lavender & deep-plum grounds / bumblebee-gold accent
+   Playfair Display (display) · Public Sans (body/UI) · IBM Plex Mono (data)
+
+   Palette follows the ZodiacBee Design System sheet (soft lavender #E0D6F3,
+   light purple #C3B1E1, bumblebee gold #F4C430). Two calls made against it:
+   1. Body/UI copy stays in Public Sans, not Playfair Display — the sheet's
+      own spec table renders every row in its display serif for demonstration,
+      but set at 14–16px in a chat thread or ledger it loses legibility.
+      Playfair Display carries headings, lead copy and numerals instead.
+   2. Solid-gold surfaces (buttons, badges, the send button) get dark ink
+      text/icons, not white — #F4C430 is far lighter than the old brass, and
+      white-on-gold fails contrast. --on-brass exists for exactly this.
    ============================================================ */
 
 :root {
   /* ---- light theme (default) ---- */
-  --ink: #201d3d;
-  --ink-soft: #55517a;
-  --ink-faint: #85819f;
-  --paper: #f4f5f6;
+  --ink: #2a1e42;
+  --ink-soft: #675c82;
+  --ink-faint: #9891ac;
+  --paper: #faf7fd;
   --paper-raised: #ffffff;
-  --paper-sunken: #eceef0;
-  --line: #dfe0e6;
-  --line-strong: #c7c8d4;
+  --paper-sunken: #f1e9fa;
+  --line: #e6daf5;
+  --line-strong: #cdb8e8;
 
-  --brass: #a9814c;
-  --brass-strong: #8c6a3a;
-  --brass-tint: #f2e8d6;
-  --brass-ink: #4a3b20;
+  --brass: #f4c430;
+  --brass-strong: #dda916;
+  --brass-tint: #fcf0c4;
+  --brass-ink: #5c4300;
+  --on-brass: #3d2a14;
+
+  /* Soft-lavender / light-purple surface family — the sheet's other two
+     swatches. Used for icon-button fills, secondary-button accents and
+     tinted cards; never for large text-on-color (see --accent-violet below
+     for that role). */
+  --lavender: #e0d6f3;
+  --violet-wash: #c3b1e1;
 
   /* Cosmic accent trio — reserved for a handful of signature "alive"
-     moments (wordmark, chart reveal, hero cards), not general UI color.
-     See the "Cosmic accents" section below for where these get used. */
-  --accent-violet: #6a54c9;
+     moments (wordmark, chart reveal, hero cards) plus the secondary-button
+     ink, not general UI color. See the "Cosmic accents" section below for
+     where these get used. */
+  --accent-violet: #7c5cae;
   --accent-magenta: #b84f8f;
   --accent-teal: #1f8f81;
   --gradient-cosmic: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-magenta) 55%, var(--accent-teal) 100%);
@@ -33,39 +52,43 @@
   --warning: #b23b49;
   --warning-tint: #f7e4e6;
 
-  --focus-ring: #6a5acd;
+  --focus-ring: #7c5cae;
 
-  --shadow-sm: 0 1px 2px rgba(32, 29, 61, 0.06), 0 1px 1px rgba(32, 29, 61, 0.04);
-  --shadow-md: 0 8px 24px rgba(32, 29, 61, 0.10), 0 2px 6px rgba(32, 29, 61, 0.06);
-  --shadow-lg: 0 24px 64px rgba(32, 29, 61, 0.18), 0 6px 16px rgba(32, 29, 61, 0.10);
+  --shadow-sm: 0 1px 2px rgba(42, 30, 66, 0.06), 0 1px 1px rgba(42, 30, 66, 0.04);
+  --shadow-md: 0 8px 24px rgba(42, 30, 66, 0.10), 0 2px 6px rgba(42, 30, 66, 0.06);
+  --shadow-lg: 0 24px 64px rgba(42, 30, 66, 0.18), 0 6px 16px rgba(42, 30, 66, 0.10);
 
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
   --radius-pill: 999px;
 
-  --font-display: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+  --font-display: "Playfair Display", "Iowan Old Style", ui-serif, Georgia, serif;
   --font-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ink: #ecebf5;
-    --ink-soft: #b3aed4;
-    --ink-faint: #7d78a3;
-    --paper: #131226;
-    --paper-raised: #1c1a37;
-    --paper-sunken: #0d0c1c;
-    --line: #322f56;
-    --line-strong: #423e6e;
+    --ink: #f1eafb;
+    --ink-soft: #c7b8e0;
+    --ink-faint: #9483b3;
+    --paper: #1a1330;
+    --paper-raised: #241a3d;
+    --paper-sunken: #120c22;
+    --line: #3b2e5c;
+    --line-strong: #4e3d75;
 
-    --brass: #ceac76;
-    --brass-strong: #e2c290;
-    --brass-tint: #33291a;
-    --brass-ink: #f2e2c4;
+    --brass: #f7ce4e;
+    --brass-strong: #ffdd6b;
+    --brass-tint: #3a2f12;
+    --brass-ink: #f4dfa0;
+    --on-brass: #2a1b0d;
 
-    --accent-violet: #9b86f2;
+    --lavender: #2e2350;
+    --violet-wash: #3d2e5e;
+
+    --accent-violet: #ab8ee0;
     --accent-magenta: #ef7ec0;
     --accent-teal: #55e0cb;
     --gradient-cosmic: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-magenta) 55%, var(--accent-teal) 100%);
@@ -75,7 +98,7 @@
     --warning: #e58a92;
     --warning-tint: #3a1c22;
 
-    --focus-ring: #a99bf0;
+    --focus-ring: #ab8ee0;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
@@ -84,21 +107,25 @@
 }
 
 :root[data-theme="dark"] {
-  --ink: #ecebf5;
-  --ink-soft: #b3aed4;
-  --ink-faint: #7d78a3;
-  --paper: #131226;
-  --paper-raised: #1c1a37;
-  --paper-sunken: #0d0c1c;
-  --line: #322f56;
-  --line-strong: #423e6e;
+  --ink: #f1eafb;
+  --ink-soft: #c7b8e0;
+  --ink-faint: #9483b3;
+  --paper: #1a1330;
+  --paper-raised: #241a3d;
+  --paper-sunken: #120c22;
+  --line: #3b2e5c;
+  --line-strong: #4e3d75;
 
-  --brass: #ceac76;
-  --brass-strong: #e2c290;
-  --brass-tint: #33291a;
-  --brass-ink: #f2e2c4;
+  --brass: #f7ce4e;
+  --brass-strong: #ffdd6b;
+  --brass-tint: #3a2f12;
+  --brass-ink: #f4dfa0;
+  --on-brass: #2a1b0d;
 
-  --accent-violet: #9b86f2;
+  --lavender: #2e2350;
+  --violet-wash: #3d2e5e;
+
+  --accent-violet: #ab8ee0;
   --accent-magenta: #ef7ec0;
   --accent-teal: #55e0cb;
   --gradient-cosmic: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-magenta) 55%, var(--accent-teal) 100%);
@@ -108,7 +135,7 @@
   --warning: #e58a92;
   --warning-tint: #3a1c22;
 
-  --focus-ring: #a99bf0;
+  --focus-ring: #ab8ee0;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
@@ -389,7 +416,7 @@ img, svg { display: block; max-width: 100%; }
 .btn:active { transform: translateY(1px); }
 .btn-primary {
   background: var(--brass);
-  color: #fff8ec;
+  color: var(--on-brass);
 }
 .btn-primary:hover { background: var(--brass-strong); }
 .btn-ghost {
@@ -455,7 +482,7 @@ img, svg { display: block; max-width: 100%; }
 .chip[aria-pressed="true"] {
   background: var(--brass);
   border-color: var(--brass);
-  color: #fff8ec;
+  color: var(--on-brass);
 }
 .chip svg { width: 14px; height: 14px; }
 
@@ -717,7 +744,7 @@ img, svg { display: block; max-width: 100%; }
   width: 2.4rem; height: 2.4rem;
   border-radius: 50%;
   background: var(--brass);
-  color: #fff8ec;
+  color: var(--on-brass);
   display: grid; place-items: center;
   flex-shrink: 0;
   transition: background 0.15s ease, opacity 0.15s ease;
@@ -804,7 +831,7 @@ img, svg { display: block; max-width: 100%; }
 .pack-card-best {
   position: absolute; top: -0.55rem; right: 0.9rem;
   font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.05em;
-  background: var(--brass); color: #fff8ec;
+  background: var(--brass); color: var(--on-brass);
   padding: 0.15rem 0.5rem; border-radius: var(--radius-pill);
   text-transform: uppercase;
 }
@@ -879,7 +906,7 @@ img, svg { display: block; max-width: 100%; }
   display: grid; place-items: center; margin-left: auto;
 }
 .channel-card[aria-checked="true"] .check-box { background: var(--brass); border-color: var(--brass); }
-.check-box svg { width: 11px; height: 11px; color: #fff8ec; opacity: 0; }
+.check-box svg { width: 11px; height: 11px; color: var(--on-brass); opacity: 0; }
 .channel-card[aria-checked="true"] .check-box svg { opacity: 1; }
 .channel-card-text { flex: 1; }
 .channel-card-text strong { display: block; font-size: 0.9rem; }
@@ -1067,7 +1094,7 @@ img, svg { display: block; max-width: 100%; }
   border-radius: 50%;
   background: linear-gradient(155deg, var(--brass) 0%, var(--brass-strong) 100%);
   display: grid; place-items: center;
-  color: #fff8ec;
+  color: var(--on-brass);
   box-shadow: 0 0 0 6px var(--brass-tint);
   animation: reveal-pop 0.5s cubic-bezier(.22,1.4,.36,1) both,
              sun-glow 3.2s ease-in-out 0.5s infinite;
