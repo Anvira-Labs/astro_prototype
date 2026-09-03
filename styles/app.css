@@ -307,14 +307,17 @@ img, svg { display: block; max-width: 100%; }
 }
 .topbar-right { display: flex; align-items: center; gap: 0.6rem; }
 
+/* Filled icon button — the lavender-fill / violet-icon treatment the sheet's
+   "Icon Button" swatch calls for, first stop for the --lavender token. */
 .theme-toggle {
   width: 2.1rem; height: 2.1rem;
   display: grid; place-items: center;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
+  border: 1px solid transparent;
+  background: var(--lavender);
+  color: var(--accent-violet);
 }
-.theme-toggle:hover { background: var(--paper-sunken); color: var(--ink); }
+.theme-toggle:hover { background: var(--violet-wash); }
 
 .balance-chip {
   display: inline-flex;
@@ -419,12 +422,15 @@ img, svg { display: block; max-width: 100%; }
   color: var(--on-brass);
 }
 .btn-primary:hover { background: var(--brass-strong); }
+/* Secondary-button ink — the one non-headline spot the cosmic-violet accent
+   is allowed outside its usual signature moments (see the --accent-violet
+   comment up top). Matches the sheet's "VIEW PROFILE" swatch. */
 .btn-ghost {
   background: transparent;
-  border-color: var(--line-strong);
-  color: var(--ink);
+  border-color: var(--accent-violet);
+  color: var(--accent-violet);
 }
-.btn-ghost:hover { background: var(--paper-sunken); }
+.btn-ghost:hover { background: var(--lavender); }
 .btn-text {
   background: transparent;
   color: var(--brass-strong);
@@ -836,10 +842,13 @@ img, svg { display: block; max-width: 100%; }
   text-transform: uppercase;
 }
 
+/* Tinted card — the sheet's lavender "tinted card" surface, used for the
+   handful of boxes that highlight a choice or explain something rather
+   than just group content (see --lavender's comment up top). */
 .recharge-summary {
   display: flex; align-items: center; justify-content: space-between;
   gap: 1rem; padding: 0.95rem 1.1rem;
-  border-radius: var(--radius-md); background: var(--paper-sunken);
+  border-radius: var(--radius-md); background: var(--lavender);
   border: 1px solid var(--line);
 }
 
@@ -879,7 +888,7 @@ img, svg { display: block; max-width: 100%; }
 .explainer {
   font-size: 0.83rem;
   color: var(--ink-soft);
-  background: var(--paper-sunken);
+  background: var(--lavender);
   border-radius: var(--radius-sm);
   padding: 0.7rem 0.85rem;
   margin-top: 0.7rem;
@@ -932,14 +941,14 @@ img, svg { display: block; max-width: 100%; }
 .next-send {
   display: flex; align-items: center; gap: 0.7rem;
   padding: 0.8rem 0.95rem; border-radius: var(--radius-sm);
-  background: var(--paper-sunken); font-size: 0.88rem;
+  background: var(--lavender); font-size: 0.88rem;
 }
 .next-send svg { width: 17px; height: 17px; color: var(--brass-strong); flex-shrink: 0; }
 .sub-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
 .delivery-preview {
   border-radius: var(--radius-md); border: 1px solid var(--line);
-  background: var(--paper-sunken); padding: 0.9rem 1rem;
+  background: var(--lavender); padding: 0.9rem 1rem;
   font-size: 0.85rem; color: var(--ink-soft);
   display: flex; gap: 0.7rem; align-items: flex-start;
 }
@@ -1071,8 +1080,8 @@ img, svg { display: block; max-width: 100%; }
 .field label { font-size: 0.82rem; font-weight: 600; color: var(--ink-soft); }
 .field input, .field select {
   border: 1.5px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 0.7rem 0.85rem;
+  border-radius: var(--radius-lg);
+  padding: 0.7rem 1rem;
   background: var(--paper-raised);
   font-size: 0.95rem;
   color: var(--ink);
