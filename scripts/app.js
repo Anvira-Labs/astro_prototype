@@ -85,6 +85,22 @@ function bootApp() {
     return renderOnboarding(onboardShell);
   });
 
+  // ---- Route transition (fade + slight slide) ---------------------------
+  // router.js dispatches "routechange" right after the newly-matched route's
+  // handler has finished repainting either #appMain or #onboardShell (only
+  // one is ever visible at a time — see mountAppScreen and the onboarding
+  // handler above). Registered before router.start() below so even the
+  // very first route (not just subsequent navigations) gets the transition.
+  // Re-adding the same class every time wouldn't restart a CSS animation on
+  // its own, so force a reflow between removing and re-adding it — the
+  // standard trick for replaying a CSS animation.
+  window.addEventListener("routechange", () => {
+    const target = onboardShell.hidden ? appMain : onboardShell;
+    target.classList.remove("route-enter");
+    void target.offsetWidth; // reflow — see comment above
+    target.classList.add("route-enter");
+  });
+
   router.start({
     default: "home",
     guard(name) {
@@ -126,6 +142,24 @@ function bootApp() {
       /* non-fatal — theme just won't persist across reloads */
     }
     document.documentElement.setAttribute("data-theme", next);
+  });
+
+  // ---- Gold press-glow on primary CTAs -----------------------------------
+  // `.btn-primary:active` in app.css already covers press-and-hold, but a
+  // fast tap ends before a human eye registers it — so on pointerdown we add
+  // .is-pressed, which plays a full CSS keyframe pulse (scale + glow, then
+  // back) regardless of how quickly the pointer lifts. One delegated
+  // listener covers every primary button on every screen, present or future,
+  // instead of each view wiring its own.
+  document.addEventListener("pointerdown", (e) => {
+    const btn = e.target.closest(".btn-primary");
+    if (!btn || btn.disabled) return;
+    btn.classList.remove("is-pressed");
+    void btn.offsetWidth; // reflow so the animation restarts on a repeated tap
+    btn.classList.add("is-pressed");
+  });
+  document.addEventListener("animationend", (e) => {
+    if (e.animationName === "cta-press-pulse") e.target.classList.remove("is-pressed");
   });
 
   // ---- PWA: install prompt ----------------------------------------------

@@ -29,8 +29,14 @@ function render() {
     }
   }
   if (typeof cleanup === "function") cleanup();
+  const previous = current;
   current = name;
   cleanup = routes.get(name)() || null;
+  // Announce the mount as a plain DOM event rather than a callback, so the
+  // router doesn't need to know anything about the app shell's containers —
+  // app.js listens for this to play the route-enter transition (a fade +
+  // slight slide) on whichever element the handler above just repainted.
+  window.dispatchEvent(new CustomEvent("routechange", { detail: { from: previous, to: name } }));
 }
 
 export const router = {

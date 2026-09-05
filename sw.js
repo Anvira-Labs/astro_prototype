@@ -1,7 +1,9 @@
 // Zodiac Bee — service worker: caches the app shell so it opens (and, once
 // visited, keeps working) without a network connection. Your data itself
 // lives in localStorage (see store.js), not here — this only caches code.
-const CACHE_NAME = "zodiacbee-shell-v1";
+// v2: bumped for the "Celestial Noir" redesign (new tokens/markup/scripts) —
+// activate()'s cache cleanup below drops the stale v1 entries automatically.
+const CACHE_NAME = "zodiacbee-shell-v2";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
@@ -11,6 +13,7 @@ const PRECACHE_URLS = [
   "./scripts/store.js",
   "./scripts/router.js",
   "./scripts/utils.js",
+  "./scripts/effects/starfield.js",
   "./scripts/views/home.js",
   "./scripts/views/chat.js",
   "./scripts/views/wallet.js",

@@ -6,6 +6,7 @@
 import { icon } from "../utils.js";
 import { router } from "../router.js";
 import { completeOnboarding, logInWithoutOnboarding } from "../store.js";
+import { mountStarfield } from "../effects/starfield.js";
 
 const SIGNS = [
   { sign: "Capricorn", endMonth: 1, endDay: 19, blurb: "Patient and long-game — you build things that are still standing years later." },
@@ -35,6 +36,7 @@ const LOADING_LINES = ["Mapping the sky at your first breath…", "Calculating y
 
 export function renderOnboarding(shell) {
   shell.innerHTML = `
+    <canvas class="onboard-starfield" aria-hidden="true"></canvas>
     <header class="onboard-topbar">
       <a class="wordmark" href="#/home">${icon.wordmark} Zodiac Bee</a>
       <div class="topbar-right">
@@ -262,4 +264,10 @@ export function renderOnboarding(shell) {
   });
 
   showStep(1);
+
+  // Cleanup returned to the router so leaving onboarding (log in, or
+  // finishing the flow) cancels the starfield's requestAnimationFrame loop
+  // rather than leaving it running behind a hidden shell (see
+  // scripts/effects/starfield.js).
+  return mountStarfield(shell.querySelector(".onboard-starfield"), { density: 60 });
 }

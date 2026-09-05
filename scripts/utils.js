@@ -29,7 +29,27 @@ export const icon = {
   listView: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><circle cx="3.5" cy="6" r="1" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1" fill="currentColor" stroke="none"/></svg>',
   sun: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>',
   disclaimer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 11v5"/><circle cx="12" cy="8" r="0.6" fill="currentColor" stroke="none"/></svg>',
-  warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5"/><circle cx="12" cy="16.2" r="0.7" fill="currentColor" stroke="none"/></svg>'
+  warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5"/><circle cx="12" cy="16.2" r="0.7" fill="currentColor" stroke="none"/></svg>',
+  // Signature "Celestial Noir" hero motif — a faint zodiac-wheel ring (outer
+  // rim, 12 tick marks, 12 house-point dots, inner rim) sized/positioned and
+  // set slowly spinning entirely in CSS (see .zodiac-wheel in app.css); this
+  // is just the static artwork.
+  zodiacWheel:
+    '<svg viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.75" aria-hidden="true">' +
+    '<circle cx="100" cy="100" r="92"/><circle cx="100" cy="100" r="72"/><circle cx="100" cy="100" r="38"/>' +
+    '<line x1="172" y1="100" x2="192" y2="100"/><line x1="162.4" y1="136" x2="179.7" y2="146"/>' +
+    '<line x1="136" y1="162.4" x2="146" y2="179.7"/><line x1="100" y1="172" x2="100" y2="192"/>' +
+    '<line x1="64" y1="162.4" x2="54" y2="179.7"/><line x1="37.6" y1="136" x2="20.3" y2="146"/>' +
+    '<line x1="28" y1="100" x2="8" y2="100"/><line x1="37.6" y1="64" x2="20.3" y2="54"/>' +
+    '<line x1="64" y1="37.6" x2="54" y2="20.3"/><line x1="100" y1="28" x2="100" y2="8"/>' +
+    '<line x1="136" y1="37.6" x2="146" y2="20.3"/><line x1="162.4" y1="64" x2="179.7" y2="54"/>' +
+    '<circle cx="182" cy="100" r="2.4" fill="currentColor" stroke="none"/><circle cx="171" cy="141" r="2.4" fill="currentColor" stroke="none"/>' +
+    '<circle cx="141" cy="171" r="2.4" fill="currentColor" stroke="none"/><circle cx="100" cy="182" r="2.4" fill="currentColor" stroke="none"/>' +
+    '<circle cx="59" cy="171" r="2.4" fill="currentColor" stroke="none"/><circle cx="29" cy="141" r="2.4" fill="currentColor" stroke="none"/>' +
+    '<circle cx="18" cy="100" r="2.4" fill="currentColor" stroke="none"/><circle cx="29" cy="59" r="2.4" fill="currentColor" stroke="none"/>' +
+    '<circle cx="59" cy="29" r="2.4" fill="currentColor" stroke="none"/><circle cx="100" cy="18" r="2.4" fill="currentColor" stroke="none"/>' +
+    '<circle cx="141" cy="29" r="2.4" fill="currentColor" stroke="none"/><circle cx="171" cy="59" r="2.4" fill="currentColor" stroke="none"/>' +
+    "</svg>"
 };
 
 export function escapeHtml(str) {

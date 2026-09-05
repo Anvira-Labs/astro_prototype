@@ -4,6 +4,7 @@
 // `hashchange`) is all that's needed; no click interception required.
 import { icon } from "../utils.js";
 import { store } from "../store.js";
+import { mountStarfield } from "../effects/starfield.js";
 
 export function renderHome(main) {
   const name = store.state.profile.name.trim();
@@ -12,6 +13,8 @@ export function renderHome(main) {
   main.innerHTML = `
     <div class="section section-wide">
       <div class="home-hero page-head">
+        <canvas class="home-starfield" aria-hidden="true"></canvas>
+        <span class="zodiac-wheel" aria-hidden="true">${icon.zodiacWheel}</span>
         <span class="eyebrow">${greeting}</span>
         <h1 class="h1" style="margin-top:.4rem;">Where do you want to go?</h1>
         <p class="lede" style="margin-top:.5rem;">Jump into a conversation, manage your tokens, or check in on today's reading.</p>
@@ -64,4 +67,9 @@ export function renderHome(main) {
       </div>
     </div>
   `;
+
+  // Cleanup returned to the router so navigating away cancels the
+  // starfield's requestAnimationFrame loop instead of leaving it running
+  // behind a screen nobody can see (see scripts/effects/starfield.js).
+  return mountStarfield(main.querySelector(".home-starfield"), { density: 70 });
 }

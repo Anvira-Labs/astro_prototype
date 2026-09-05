@@ -46,6 +46,10 @@ Vanilla JS, hash-routed single-page app:
   registration.
 - `scripts/views/*.js` — one module per screen (home, chat, wallet,
   subscription, products, onboarding).
+- `scripts/effects/starfield.js` — the ambient starfield/nebula-drift canvas
+  mounted behind the Home and Onboarding heroes; respects
+  `prefers-reduced-motion`. See `DESIGN_NOTES.md` for the rest of the
+  "Celestial Noir" visual direction (palette, motion, glass-morphism).
 - `styles/app.css` — the ZodiacBee design system: tokens, typography, and
   every shared component (buttons, cards, chips, the switch, the modal).
 

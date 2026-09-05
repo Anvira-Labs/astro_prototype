@@ -1,47 +1,185 @@
 /* ============================================================
-   Zodiac Bee — shared design tokens & components
-   Lavender-plum ink / soft-lavender & deep-plum grounds / bumblebee-gold accent
+   Zodiac Bee — "Celestial Noir" design tokens & components
+   Deep space-navy/aubergine ground · antique-gold signature accent ·
+   violet/magenta/teal jewel trio for gradients & glow
    Playfair Display (display) · Public Sans (body/UI) · IBM Plex Mono (data)
 
-   Palette follows the ZodiacBee Design System sheet (soft lavender #E0D6F3,
-   light purple #C3B1E1, bumblebee gold #F4C430). Two calls made against it:
-   1. Body/UI copy stays in Public Sans, not Playfair Display — the sheet's
-      own spec table renders every row in its display serif for demonstration,
-      but set at 14–16px in a chat thread or ledger it loses legibility.
-      Playfair Display carries headings, lead copy and numerals instead.
+   This is a dark-mode-FIRST system: the bare :root block below (no
+   [data-theme] qualifier, no media query) holds the dark "Celestial Noir"
+   values, because that's the primary, designed-for experience — a boutique,
+   observatory-at-night read, not a daytime app with a dark mode bolted on.
+   Light is the secondary, opt-in experience: it only takes over when the
+   visitor's OS prefers light (`@media (prefers-color-scheme: light)`) or
+   they explicitly flip the in-app toggle to light (`[data-theme="light"]`).
+   An explicit `[data-theme="dark"]` block still exists so the toggle can
+   force dark even for a visitor whose OS prefers light. Three calls made
+   against the palette:
+   1. Body/UI copy stays in Public Sans, not Playfair Display — Playfair
+      carries headings, lead copy and numerals, where its serif detail and
+      old-style figures read as jewelry-catalog rather than a chat app.
    2. Solid-gold surfaces (buttons, badges, the send button) get dark ink
-      text/icons, not white — #F4C430 is far lighter than the old brass, and
-      white-on-gold fails contrast. --on-brass exists for exactly this.
+      text/icons, not white — the champagne-gold family here is light enough
+      that white-on-gold fails contrast. --on-brass exists for exactly this.
+   3. --glass-bg/--glass-border/--glow-gold are new tokens for the
+      glass-morphic card treatment and the CTA press-glow micro-interaction
+      (see the "Glass & glow" section and .btn-primary below) — both read as
+      "premium dark app" and fall apart as flat light-mode affordances, so
+      each theme block defines its own value rather than sharing one.
    ============================================================ */
 
 :root {
-  /* ---- light theme (default) ---- */
+  /* ---- dark theme ("Celestial Noir" — the primary experience) ---- */
+  --ink: #f3ecfb;
+  --ink-soft: #cabfe6;
+  --ink-faint: #a297c9;
+  --paper: #0d0a1a;
+  --paper-raised: #1a1330;
+  --paper-sunken: #070512;
+  --line: #2d2350;
+  --line-strong: #4a3c74;
+
+  /* Deep space-navy → aubergine ground — the dominant surface in this
+     direction, not a flat fill. Body paints this directly (see the reset
+     below); component surfaces still use the flat --paper/--paper-raised
+     tokens above so text stays legible on top of them. */
+  --ground-gradient:
+    radial-gradient(130% 85% at 14% -12%, #2a1f45 0%, transparent 55%),
+    radial-gradient(105% 80% at 100% 8%, #3a2547 0%, transparent 52%),
+    radial-gradient(90% 70% at 82% 100%, #1c1330 0%, transparent 60%),
+    linear-gradient(165deg, #0d0a1a 0%, #171029 45%, #241a3d 100%);
+
+  /* Antique-gold / champagne — the signature accent. Sparing by design:
+     CTAs, active states, numerals, "alive" moments. Never a flood fill. */
+  --brass: #e9c46a;
+  --brass-strong: #f4c430;
+  --brass-tint: #2b2210;
+  --brass-ink: #f4dfa0;
+  --on-brass: #241505;
+  /* AA-safe gold for direct foreground text on a plain surface (.eyebrow,
+     .btn-text, .product-cat, the active tab label) — distinct from --brass
+     / --brass-strong, which are tuned for fills paired with --on-brass, not
+     for standing alone as small text. Equal to --brass-strong here because
+     champagne-on-near-black already clears 4.5:1 comfortably; the light
+     theme below needs a genuinely darker gold instead (see its comment). */
+  --brass-text: #f4c430;
+
+  /* Soft-lavender / violet-wash surface family — icon-button fills,
+     secondary-button accents and tinted cards; never large text-on-color
+     (see --accent-violet below for that role). */
+  --lavender: #251c42;
+  --violet-wash: #362a56;
+
+  /* Jewel accent trio — reserved for a handful of signature "alive"
+     moments (wordmark, chart reveal, hero cards, gradients/glow) plus the
+     secondary-button ink, not general UI color. */
+  --accent-violet: #a98bfa;
+  --accent-magenta: #ea63b3;
+  --accent-teal: #45e0c9;
+  --gradient-cosmic: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-magenta) 55%, var(--accent-teal) 100%);
+
+  --positive: #7fdba6;
+  --positive-tint: #12271d;
+  --warning: #f2909b;
+  --warning-tint: #2e1319;
+
+  --focus-ring: #c3a8ff;
+
+  /* Glass & glow — the glass-morphic panel treatment (chat bubbles, wallet
+     hero, subscription status card) and the gold press-glow on primary
+     CTAs. Dark-only in spirit: each theme defines its own so the blur/glow
+     reads as "premium," not "washed out," in both. */
+  --glass-bg: rgba(30, 22, 54, 0.55);
+  --glass-border: rgba(233, 196, 106, 0.28);
+  --glass-border-violet: rgba(169, 139, 250, 0.32);
+  --glow-gold: 0 0 1.4rem 0.15rem rgba(233, 196, 106, 0.45);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.62), 0 8px 20px rgba(0, 0, 0, 0.4);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --font-display: "Playfair Display", "Iowan Old Style", ui-serif, Georgia, serif;
+  --font-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* ---- light theme (secondary — OS preference or explicit toggle) ---- */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ink: #2a1e42;
+    --ink-soft: #675c82;
+    --ink-faint: #756a92;
+    --paper: #faf7fd;
+    --paper-raised: #ffffff;
+    --paper-sunken: #f1e9fa;
+    --line: #e6daf5;
+    --line-strong: #cdb8e8;
+    --ground-gradient: linear-gradient(165deg, #faf7fd 0%, #f4eefc 60%, #efe6fb 100%);
+
+    --brass: #dda916;
+    --brass-strong: #c4920e;
+    --brass-tint: #fcf0c4;
+    --brass-ink: #5c4300;
+    --on-brass: #2a1b06;
+    /* Deliberately much darker than --brass/--brass-strong: those two are
+       tuned as *fills* (paired with --on-brass on top), but at fill-grade
+       lightness gold text reads under 3:1 against this theme's near-white
+       paper. #8a6800 is the darkest step that still reads unmistakably as
+       antique gold and clears 4.5:1 against both --paper and
+       --paper-raised. */
+    --brass-text: #8a6800;
+
+    --lavender: #e0d6f3;
+    --violet-wash: #c3b1e1;
+
+    --accent-violet: #7c5cae;
+    --accent-magenta: #b84f8f;
+    --accent-teal: #1f8f81;
+    --gradient-cosmic: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-magenta) 55%, var(--accent-teal) 100%);
+
+    --positive: #3f7c63;
+    --positive-tint: #e2efe9;
+    --warning: #b23b49;
+    --warning-tint: #f7e4e6;
+
+    --focus-ring: #7c5cae;
+
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-border: rgba(196, 146, 14, 0.3);
+    --glass-border-violet: rgba(124, 92, 174, 0.28);
+    --glow-gold: 0 0 1.4rem 0.1rem rgba(196, 146, 14, 0.28);
+
+    --shadow-sm: 0 1px 2px rgba(42, 30, 66, 0.06), 0 1px 1px rgba(42, 30, 66, 0.04);
+    --shadow-md: 0 8px 24px rgba(42, 30, 66, 0.1), 0 2px 6px rgba(42, 30, 66, 0.06);
+    --shadow-lg: 0 24px 64px rgba(42, 30, 66, 0.18), 0 6px 16px rgba(42, 30, 66, 0.1);
+  }
+}
+
+:root[data-theme="light"] {
   --ink: #2a1e42;
   --ink-soft: #675c82;
-  --ink-faint: #9891ac;
+  --ink-faint: #756a92;
   --paper: #faf7fd;
   --paper-raised: #ffffff;
   --paper-sunken: #f1e9fa;
   --line: #e6daf5;
   --line-strong: #cdb8e8;
+  --ground-gradient: linear-gradient(165deg, #faf7fd 0%, #f4eefc 60%, #efe6fb 100%);
 
-  --brass: #f4c430;
-  --brass-strong: #dda916;
+  --brass: #dda916;
+  --brass-strong: #c4920e;
   --brass-tint: #fcf0c4;
   --brass-ink: #5c4300;
-  --on-brass: #3d2a14;
+  --on-brass: #2a1b06;
+  --brass-text: #8a6800;
 
-  /* Soft-lavender / light-purple surface family — the sheet's other two
-     swatches. Used for icon-button fills, secondary-button accents and
-     tinted cards; never for large text-on-color (see --accent-violet below
-     for that role). */
   --lavender: #e0d6f3;
   --violet-wash: #c3b1e1;
 
-  /* Cosmic accent trio — reserved for a handful of signature "alive"
-     moments (wordmark, chart reveal, hero cards) plus the secondary-button
-     ink, not general UI color. See the "Cosmic accents" section below for
-     where these get used. */
   --accent-violet: #7c5cae;
   --accent-magenta: #b84f8f;
   --accent-teal: #1f8f81;
@@ -54,92 +192,61 @@
 
   --focus-ring: #7c5cae;
 
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(196, 146, 14, 0.3);
+  --glass-border-violet: rgba(124, 92, 174, 0.28);
+  --glow-gold: 0 0 1.4rem 0.1rem rgba(196, 146, 14, 0.28);
+
   --shadow-sm: 0 1px 2px rgba(42, 30, 66, 0.06), 0 1px 1px rgba(42, 30, 66, 0.04);
-  --shadow-md: 0 8px 24px rgba(42, 30, 66, 0.10), 0 2px 6px rgba(42, 30, 66, 0.06);
-  --shadow-lg: 0 24px 64px rgba(42, 30, 66, 0.18), 0 6px 16px rgba(42, 30, 66, 0.10);
-
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 22px;
-  --radius-pill: 999px;
-
-  --font-display: "Playfair Display", "Iowan Old Style", ui-serif, Georgia, serif;
-  --font-body: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --ink: #f1eafb;
-    --ink-soft: #c7b8e0;
-    --ink-faint: #9483b3;
-    --paper: #1a1330;
-    --paper-raised: #241a3d;
-    --paper-sunken: #120c22;
-    --line: #3b2e5c;
-    --line-strong: #4e3d75;
-
-    --brass: #f7ce4e;
-    --brass-strong: #ffdd6b;
-    --brass-tint: #3a2f12;
-    --brass-ink: #f4dfa0;
-    --on-brass: #2a1b0d;
-
-    --lavender: #2e2350;
-    --violet-wash: #3d2e5e;
-
-    --accent-violet: #ab8ee0;
-    --accent-magenta: #ef7ec0;
-    --accent-teal: #55e0cb;
-    --gradient-cosmic: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-magenta) 55%, var(--accent-teal) 100%);
-
-    --positive: #7cc4a4;
-    --positive-tint: #17332a;
-    --warning: #e58a92;
-    --warning-tint: #3a1c22;
-
-    --focus-ring: #ab8ee0;
-
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
-    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-    --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.55);
-  }
+  --shadow-md: 0 8px 24px rgba(42, 30, 66, 0.1), 0 2px 6px rgba(42, 30, 66, 0.06);
+  --shadow-lg: 0 24px 64px rgba(42, 30, 66, 0.18), 0 6px 16px rgba(42, 30, 66, 0.1);
 }
 
 :root[data-theme="dark"] {
-  --ink: #f1eafb;
-  --ink-soft: #c7b8e0;
-  --ink-faint: #9483b3;
-  --paper: #1a1330;
-  --paper-raised: #241a3d;
-  --paper-sunken: #120c22;
-  --line: #3b2e5c;
-  --line-strong: #4e3d75;
+  --ink: #f3ecfb;
+  --ink-soft: #cabfe6;
+  --ink-faint: #a297c9;
+  --paper: #0d0a1a;
+  --paper-raised: #1a1330;
+  --paper-sunken: #070512;
+  --line: #2d2350;
+  --line-strong: #4a3c74;
+  --ground-gradient:
+    radial-gradient(130% 85% at 14% -12%, #2a1f45 0%, transparent 55%),
+    radial-gradient(105% 80% at 100% 8%, #3a2547 0%, transparent 52%),
+    radial-gradient(90% 70% at 82% 100%, #1c1330 0%, transparent 60%),
+    linear-gradient(165deg, #0d0a1a 0%, #171029 45%, #241a3d 100%);
 
-  --brass: #f7ce4e;
-  --brass-strong: #ffdd6b;
-  --brass-tint: #3a2f12;
+  --brass: #e9c46a;
+  --brass-strong: #f4c430;
+  --brass-tint: #2b2210;
   --brass-ink: #f4dfa0;
-  --on-brass: #2a1b0d;
+  --on-brass: #241505;
+  --brass-text: #f4c430;
 
-  --lavender: #2e2350;
-  --violet-wash: #3d2e5e;
+  --lavender: #251c42;
+  --violet-wash: #362a56;
 
-  --accent-violet: #ab8ee0;
-  --accent-magenta: #ef7ec0;
-  --accent-teal: #55e0cb;
+  --accent-violet: #a98bfa;
+  --accent-magenta: #ea63b3;
+  --accent-teal: #45e0c9;
   --gradient-cosmic: linear-gradient(135deg, var(--accent-violet) 0%, var(--accent-magenta) 55%, var(--accent-teal) 100%);
 
-  --positive: #7cc4a4;
-  --positive-tint: #17332a;
-  --warning: #e58a92;
-  --warning-tint: #3a1c22;
+  --positive: #7fdba6;
+  --positive-tint: #12271d;
+  --warning: #f2909b;
+  --warning-tint: #2e1319;
 
-  --focus-ring: #ab8ee0;
+  --focus-ring: #c3a8ff;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.55);
+  --glass-bg: rgba(30, 22, 54, 0.55);
+  --glass-border: rgba(233, 196, 106, 0.28);
+  --glass-border-violet: rgba(169, 139, 250, 0.32);
+  --glow-gold: 0 0 1.4rem 0.15rem rgba(233, 196, 106, 0.45);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 28px 70px rgba(0, 0, 0, 0.62), 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* ---- reset ---- */
@@ -151,7 +258,13 @@
 html, body { height: 100%; }
 body {
   margin: 0;
-  background: var(--paper);
+  /* Celestial Noir's ground is a gradient, not a flat fill — see the
+     --ground-gradient token comment up top. background-attachment stays the
+     scroll default (not `fixed`): fixed backgrounds force the compositor to
+     repaint every scroll frame on mobile, exactly the layout-thrashing this
+     prototype is meant to avoid. */
+  background: var(--ground-gradient);
+  background-repeat: no-repeat;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
@@ -192,7 +305,9 @@ img, svg { display: block; max-width: 100%; }
   font-size: 0.72rem;
   letter-spacing: 0.11em;
   text-transform: uppercase;
-  color: var(--brass);
+  /* --brass-text, not --brass — this is small standalone text on a plain
+     surface, not a fill with --on-brass on top; see that token's comment. */
+  color: var(--brass-text);
   font-weight: 500;
 }
 .h1 {
@@ -255,6 +370,22 @@ img, svg { display: block; max-width: 100%; }
 }
 @media (min-width: 900px) {
   .app-main { padding: 2.25rem 2.75rem 2.75rem; }
+}
+
+/* Route transition — a fade + slight upward slide played on whichever
+   container (.app-main or #onboardShell) just received a freshly-rendered
+   view. Wired from router.js's "routechange" event (see app.js's listener)
+   rather than baked into each view, so every route gets it for free and no
+   view module needs to know transitions exist. Content swaps synchronously
+   (innerHTML), so this is an "enter" animation only — there's no outgoing
+   view to hold onscreen for an exit — which reads as a clean cross-fade in
+   practice since the new frame starts from 0 opacity. */
+@keyframes route-fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.route-enter {
+  animation: route-fade-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Topbar */
@@ -352,6 +483,7 @@ img, svg { display: block; max-width: 100%; }
   .nav-rail { display: flex; }
 }
 .nav-item {
+  position: relative; /* anchors the ::after underline below */
   display: flex;
   align-items: center;
   gap: 0.7rem;
@@ -360,12 +492,34 @@ img, svg { display: block; max-width: 100%; }
   color: var(--ink-soft);
   font-size: 0.95rem;
   font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
 .nav-item:hover { background: var(--paper-sunken); color: var(--ink); }
+/* "Alive" active state: a faint gold wash plus a glowing underline that
+   slides in from the left each time a nav item becomes current — reads as
+   a live indicator, not a flat color swap. The underline is re-triggered
+   on every navigation (including re-selecting the same item) because the
+   [aria-current] attribute is removed and re-set fresh on each route
+   change in app.js's setActiveNav(), which restarts the animation. */
 .nav-item[aria-current="page"] {
-  background: var(--brass-tint);
+  background: color-mix(in srgb, var(--brass) 12%, transparent);
   color: var(--brass-ink);
+}
+.nav-item[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 0.75rem; right: 0.75rem; bottom: 0.15rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brass) 0%, var(--brass-strong) 100%);
+  box-shadow: 0 0 8px 1px color-mix(in srgb, var(--brass-strong) 60%, transparent);
+  transform-origin: left;
+  animation: nav-underline-slide 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes nav-underline-slide {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 .nav-rail-foot {
   margin-top: auto;
@@ -387,6 +541,7 @@ img, svg { display: block; max-width: 100%; }
   .tabbar { display: none; }
 }
 .tab-item {
+  position: relative; /* anchors the ::after underline below */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -398,9 +553,23 @@ img, svg { display: block; max-width: 100%; }
   font-weight: 500;
   flex: 1;
   max-width: 5.5rem;
+  transition: color 0.15s ease;
 }
 .tab-item svg { width: 20px; height: 20px; }
-.tab-item[aria-current="page"] { color: var(--brass-strong); }
+.tab-item[aria-current="page"] { color: var(--brass-text); } /* standalone text, not a fill — see .eyebrow's comment */
+/* Same glowing-underline "alive" treatment as .nav-item, sized for the
+   bottom tabbar's tighter, icon-over-label layout. */
+.tab-item[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 30%; right: 30%; bottom: -0.05rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brass) 0%, var(--brass-strong) 100%);
+  box-shadow: 0 0 8px 1px color-mix(in srgb, var(--brass-strong) 60%, transparent);
+  transform-origin: center;
+  animation: nav-underline-slide 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
 
 /* ---- buttons ---- */
 .btn {
@@ -420,8 +589,26 @@ img, svg { display: block; max-width: 100%; }
 .btn-primary {
   background: var(--brass);
   color: var(--on-brass);
+  box-shadow: 0 0 0 0 transparent;
 }
 .btn-primary:hover { background: var(--brass-strong); }
+/* Gold press micro-interaction: a quick scale-down + glow pulse, felt only
+   on press (not on hover, and not a lingering state) — the .is-pressed
+   class is toggled by app.js on pointerdown/up so the pulse plays in full
+   even for a fast tap, where a bare `:active` rule would get cut short the
+   instant the finger lifts. `:active` still covers press-and-hold and any
+   input device app.js's listener doesn't catch (keyboard Enter/Space). */
+.btn-primary:active,
+.btn-primary.is-pressed {
+  transform: scale(0.97);
+  box-shadow: var(--glow-gold);
+}
+.btn-primary.is-pressed { animation: cta-press-pulse 0.5s ease-out; }
+@keyframes cta-press-pulse {
+  0% { box-shadow: 0 0 0 0 transparent; }
+  35% { box-shadow: var(--glow-gold); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
 /* Secondary-button ink — the one non-headline spot the cosmic-violet accent
    is allowed outside its usual signature moments (see the --accent-violet
    comment up top). Matches the sheet's "VIEW PROFILE" swatch. */
@@ -433,7 +620,7 @@ img, svg { display: block; max-width: 100%; }
 .btn-ghost:hover { background: var(--lavender); }
 .btn-text {
   background: transparent;
-  color: var(--brass-strong);
+  color: var(--brass-text); /* standalone text, not a fill — see .eyebrow's comment */
   padding: 0.4rem 0.2rem;
 }
 .btn-text:hover { text-decoration: underline; }
@@ -460,6 +647,22 @@ img, svg { display: block; max-width: 100%; }
   padding: 1.1rem;
 }
 .card-lg { border-radius: var(--radius-lg); padding: 1.5rem; }
+/* Glass-morphic surface — blurred, translucent panel with a fine gold or
+   violet glow border. Applied to a handful of signature surfaces (chat
+   bubbles, the wallet balance hero, the subscription status card) rather
+   than every card, so it reads as a deliberate material, not a filter
+   slapped on everything. `.is-violet` swaps the border/glow to the jewel
+   accent for surfaces that already sit on a gold-heavy screen. Backdrop-
+   filter degrades gracefully (falls back to --glass-bg's own opacity) on
+   the rare engine without support. */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.glass-panel.is-violet { border-color: var(--glass-border-violet); }
 .section {
   max-width: 780px;
   margin: 0 auto;
@@ -567,6 +770,7 @@ img, svg { display: block; max-width: 100%; }
 .radio-card[aria-checked="true"] {
   border-color: var(--brass);
   background: var(--brass-tint);
+  box-shadow: var(--glow-gold);
 }
 .radio-card .dot {
   width: 1.15rem; height: 1.15rem;
@@ -665,9 +869,16 @@ img, svg { display: block; max-width: 100%; }
   font-size: 0.95rem;
   line-height: 1.5;
 }
+/* Glass-morphic treatment: a blurred, translucent panel with a fine
+   violet-glow border — see the --glass-* tokens' comment up top. The AI
+   bubble is the one place in Chat that gets it (the user bubble stays a
+   flat --ink fill so the thread still reads left/right at a glance). */
 .msg-ai .bubble {
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border-violet);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: var(--shadow-sm);
   border-bottom-left-radius: 0.3rem;
 }
 .msg-user .bubble {
@@ -767,14 +978,18 @@ img, svg { display: block; max-width: 100%; }
 /* ============================================================
    Screen: Wallet
    ============================================================ */
+/* Glass-morphic wallet hero: a fixed dark, jewel-toned gradient — not a
+   token, deliberately, since this card's ground stays dark and readable
+   against #f4f5f6 text regardless of theme (see the fixed eyebrow/ghost
+   colors below) — kept mostly-opaque (not a fully see-through --glass-bg)
+   so the balance figure never has to fight a light-theme backdrop showing
+   through, but still blurred/bordered/inset-lit like the rest of the
+   glass-panel family so it reads as the same material. */
 .balance-hero {
-  background: linear-gradient(155deg, var(--ink) 0%, #3b2f66 55%, #4a2f57 100%);
-  /* Fixed light value, not var(--paper) — this card's ground stays dark in
-     both themes (see the dark-theme background override just below), but
-     --paper itself flips to near-black in dark theme. Using the token here
-     was a pre-existing bug: it made the balance figure nearly invisible in
-     dark mode. #f4f5f6 matches --paper's light-theme value exactly, so this
-     is a no-op in light theme and a fix in dark theme. */
+  background: linear-gradient(155deg, rgba(28, 22, 55, 0.92) 0%, rgba(51, 40, 90, 0.88) 55%, rgba(61, 40, 76, 0.88) 100%);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--glass-border);
   color: #f4f5f6;
   border-radius: var(--radius-lg);
   padding: 1.6rem 1.5rem;
@@ -783,10 +998,7 @@ img, svg { display: block; max-width: 100%; }
   gap: 0.9rem;
   position: relative;
   overflow: hidden;
-}
-:root[data-theme="dark"] .balance-hero { background: linear-gradient(155deg, #1c1a37 0%, #33285a 55%, #3d2a4c 100%); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .balance-hero { background: linear-gradient(155deg, #1c1a37 0%, #33285a 55%, #3d2a4c 100%); }
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 .balance-hero::after {
   content: "";
@@ -827,7 +1039,7 @@ img, svg { display: block; max-width: 100%; }
   position: relative;
 }
 .pack-card:hover { border-color: var(--line-strong); }
-.pack-card[aria-checked="true"] { border-color: var(--brass); background: var(--brass-tint); box-shadow: var(--shadow-sm); }
+.pack-card[aria-checked="true"] { border-color: var(--brass); background: var(--brass-tint); box-shadow: var(--shadow-sm), var(--glow-gold); }
 .pack-card-tokens { font-family: var(--font-mono); font-size: 1.35rem; font-weight: 600; }
 .pack-card-price { color: var(--ink-soft); font-size: 0.88rem; }
 .pack-card-best {
@@ -849,14 +1061,13 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .paymethod-row { display: flex; align-items: center; gap: 0.85rem; }
+/* Fixed dark gradient, not tokens — this is a device/card-chip glyph, not
+   app chrome, so like .phone-frame's bezel it stays the same dark plum
+   regardless of theme. */
 .card-glyph {
   width: 2.6rem; height: 1.85rem; border-radius: 5px;
-  background: linear-gradient(135deg, var(--ink) 0%, #4a4478 100%);
+  background: linear-gradient(135deg, #423e6e 0%, #2b2850 100%);
   flex-shrink: 0; display: grid; place-items: center;
-}
-:root[data-theme="dark"] .card-glyph { background: linear-gradient(135deg, #423e6e 0%, #2b2850 100%); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .card-glyph { background: linear-gradient(135deg, #423e6e 0%, #2b2850 100%); }
 }
 .card-glyph svg { width: 15px; height: 15px; color: var(--brass); }
 .paymethod-text { flex: 1; }
@@ -936,7 +1147,7 @@ img, svg { display: block; max-width: 100%; }
   flex: 1 1 15rem;
 }
 .channel-card:hover { border-color: var(--line-strong); }
-.channel-card[aria-checked="true"] { border-color: var(--brass); background: var(--brass-tint); }
+.channel-card[aria-checked="true"] { border-color: var(--brass); background: var(--brass-tint); box-shadow: var(--glow-gold); }
 .channel-card svg { width: 19px; height: 19px; color: var(--ink-soft); flex-shrink: 0; }
 .channel-card[aria-checked="true"] svg { color: var(--brass-strong); }
 .check-box {
@@ -950,14 +1161,20 @@ img, svg { display: block; max-width: 100%; }
 .channel-card-text { flex: 1; }
 .channel-card-text strong { display: block; font-size: 0.9rem; }
 
+/* Glass-morphic treatment — same material as .msg-ai .bubble, gold-bordered
+   here instead of violet since this card is where the plan's "alive" status
+   lives (see the --glass-* tokens' comment up top). */
 .sub-status-card {
   border-radius: var(--radius-lg);
-  border: 1px solid var(--line);
-  background: var(--paper-raised);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   padding: 1.3rem;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 .sub-status-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .status-pill {
@@ -1015,7 +1232,7 @@ img, svg { display: block; max-width: 100%; }
 .product-art.tone-c { background: radial-gradient(120% 130% at 25% 85%, #3a5a4e 0%, #16241f 65%); color: #cfe3d9; }
 .product-art.tone-d { background: radial-gradient(120% 130% at 75% 80%, #5c3a44 0%, #241618 65%); color: #e9d3d7; }
 .product-body { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
-.product-cat { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass-strong); }
+.product-cat { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--brass-text); } /* standalone text, not a fill — see .eyebrow's comment */
 .product-title { font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; }
 .product-desc { font-size: 0.85rem; color: var(--ink-soft); flex: 1; }
 .product-link {
@@ -1046,11 +1263,24 @@ img, svg { display: block; max-width: 100%; }
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
   background:
     radial-gradient(120% 90% at 85% -10%, var(--brass-tint) 0%, transparent 55%),
     radial-gradient(90% 70% at 6% 100%, color-mix(in srgb, var(--accent-violet) 16%, transparent) 0%, transparent 60%),
-    var(--paper);
+    var(--ground-gradient);
 }
+/* Ambient starfield/nebula canvas mounted by onboarding.js (see
+   scripts/effects/starfield.js) — fixed behind every panel of the flow,
+   never intercepts clicks, and is skipped entirely under
+   prefers-reduced-motion (the module still paints one static frame so the
+   screen isn't left blank). */
+.onboard-starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.onboard-topbar, .onboard-main { position: relative; z-index: 1; }
 .onboard-topbar {
   display: flex; align-items: center; justify-content: space-between;
   padding: 1rem;
@@ -1173,9 +1403,12 @@ img, svg { display: block; max-width: 100%; }
 .home-hero {
   padding: 0.2rem 0 0.4rem;
   position: relative;
+  isolation: isolate; /* keeps the starfield/wheel's negative z-index from
+                          escaping behind the app shell instead of just this
+                          hero — same reasoning as .onboard-card above */
 }
-/* Ambient cosmic wash behind the entry-point headline — static (no motion
-   budget spent here; the wordmark pulse already carries this screen). */
+/* Ambient cosmic wash behind the entry-point headline, now layered over the
+   starfield canvas rather than carrying the motion budget alone. */
 .home-hero::before {
   content: "";
   position: absolute;
@@ -1186,6 +1419,36 @@ img, svg { display: block; max-width: 100%; }
     radial-gradient(75% 100% at 12% 0%, color-mix(in srgb, var(--accent-violet) 14%, transparent) 0%, transparent 60%),
     radial-gradient(65% 100% at 92% 15%, color-mix(in srgb, var(--brass) 16%, transparent) 0%, transparent 55%);
   pointer-events: none;
+}
+/* Ambient starfield/nebula canvas mounted by home.js (see
+   scripts/effects/starfield.js) — sits behind the wash above and the
+   headline text, ahead of nothing (z-index -2, lowest layer in the hero). */
+.home-starfield {
+  position: absolute;
+  inset: -1rem -1.5rem auto -1.5rem;
+  height: 11rem;
+  z-index: -2;
+  pointer-events: none;
+}
+/* Signature rotating zodiac-wheel motif — a faint, slow-turning ring behind
+   the headline. Pure CSS animation on an inline SVG (see icon.zodiacWheel
+   in utils.js); respects prefers-reduced-motion via the global rule at the
+   top of this file, which is why the rotation itself carries no fallback
+   here — it simply freezes in place instead of being removed. */
+.zodiac-wheel {
+  position: absolute;
+  top: -3.5rem;
+  right: -2.5rem;
+  width: 15rem;
+  height: 15rem;
+  z-index: -1;
+  opacity: 0.16;
+  color: var(--brass);
+  pointer-events: none;
+  animation: zodiac-wheel-spin 140s linear infinite;
+}
+@keyframes zodiac-wheel-spin {
+  to { transform: rotate(360deg); }
 }
 .tile-grid {
   display: grid;
